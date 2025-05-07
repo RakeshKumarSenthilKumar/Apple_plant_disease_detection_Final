@@ -3,6 +3,8 @@ import google.generativeai as genai
 from gtts import gTTS  # Import gTTS
 import os
 import tempfile
+import speech_recognition as sr
+from io import BytesIO
 
 # Set your Gemini API key
 GEMINI_API_KEY = "AIzaSyBLGohpipKfhQ17IsILLOGNT3m7l9jeoOs"
@@ -31,15 +33,32 @@ def get_plant_response(prompt):
         return "I only respond to plant-related queries. Please ask something about plants or plant diseases."
 
 def generate_speech(text):
-    """Convert the given text to speech and return the file path."""
-    # Use gTTS to convert text to speech
+    """Convert the given text to speech and return the audio content in memory."""
     tts = gTTS(text=text, lang='en')
     
-    # Save speech to a temporary file
-    with tempfile.NamedTemporaryFile(delete=True, suffix=".mp3") as temp_file:
-        temp_file_name = temp_file.name
-        tts.save(temp_file_name)
-        return temp_file_name
+    # Save the speech to a BytesIO object instead of a file
+    audio_fp = BytesIO()
+    tts.save(audio_fp)
+    audio_fp.seek(0)  # Move to the beginning of the file
+    
+    return audio_fp
+
+def recognize_speech():
+    """Capture speech input and convert it to text."""
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        st.info("Listening... Speak now!")
+        recognizer.adjust_for_ambient_noise(source)
+        try:
+            audio = recognizer.listen(source, timeout=10)
+            text = recognizer.recognize_google(audio)
+            return text
+        except sr.WaitTimeoutError:
+            return "Listening timed out. You didn't speak in time."
+        except sr.UnknownValueError:
+            return "Sorry, I couldn't understand your speech."
+        except sr.RequestError:
+            return "Could not request results. Check your internet connection."
 
 # Streamlit UI
 st.title("🌱 Plant Chatbot")
