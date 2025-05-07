@@ -1,20 +1,12 @@
-
-#####################################---------------------------##############
-###################👇below is with voice input and output
 import streamlit as st
 import google.generativeai as genai
-import pyttsx3
-import speech_recognition as sr
+from gtts import gTTS  # Import gTTS
 import os
-# st.title("projrcts")
+import tempfile
+
 # Set your Gemini API key
-# GEMINI_API_KEY = "AIzaSyBRTEq_pMAxzNvDK7tAz6m570J_vj43Gs4"
 GEMINI_API_KEY = "AIzaSyBnmKPdqC4CeJ5U1lP_xfzWsjgWWzVjZ9E"
-
 genai.configure(api_key=GEMINI_API_KEY)
-
-# Set up pyttsx3 engine
-engine = pyttsx3.init()
 
 # Define plant-related keywords
 PLANT_KEYWORDS = [
@@ -39,46 +31,17 @@ def get_plant_response(prompt):
         return "I only respond to plant-related queries. Please ask something about plants or plant diseases."
 
 def generate_speech(text):
-    """Convert the given text to speech and play it using pyttsx3."""
-    engine.save_to_file(text, "response.mp3")
-    engine.runAndWait()
+    """Convert the given text to speech and return the file path."""
+    # Use gTTS to convert text to speech
+    tts = gTTS(text=text, lang='en')
     
-    return "response.mp3"
-
-# def recognize_speech():
-#     """Capture speech input and convert it to text."""
-#     recognizer = sr.Recognizer()
-#     with sr.Microphone() as source:
-#         st.info("Listening... Speak now!")
-#         recognizer.adjust_for_ambient_noise(source)
-#         try:
-#             audio = recognizer.listen(source, timeout=10)
-#             text = recognizer.recognize_google(audio)
-#             return text
-#         except sr.UnknownValueError:
-#             return "Sorry, I couldn't understand your speech."
-#         except sr.RequestError:
-#             return "Could not request results. Check your internet connection."
-def recognize_speech():
-    """Capture speech input and convert it to text."""
-    recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        st.info("Listening... Speak now!")
-        recognizer.adjust_for_ambient_noise(source)
-        try:
-            audio = recognizer.listen(source, timeout=10)
-            text = recognizer.recognize_google(audio)
-            return text
-        except sr.WaitTimeoutError:
-            return "Listening timed out. You didn't speak in time."
-        except sr.UnknownValueError:
-            return "Sorry, I couldn't understand your speech."
-        except sr.RequestError:
-            return "Could not request results. Check your internet connection."
+    # Save speech to a temporary file
+    with tempfile.NamedTemporaryFile(delete=True, suffix=".mp3") as temp_file:
+        temp_file_name = temp_file.name
+        tts.save(temp_file_name)
+        return temp_file_name
 
 # Streamlit UI
-# st.set_page_config(page_title="Plant Care & Disease Chatbot", page_icon="🌱")
-
 st.title("🌱 Plant Chatbot")
 st.write("Ask me anything about plants, plant diseases, and plant care!")
 
@@ -97,7 +60,6 @@ for msg in st.session_state.messages:
         if st.button("🔊 Listen", key=msg["text"]):
             audio_file = generate_speech(msg["text"])
             st.audio(audio_file, format="audio/mp3")
-            os.remove(audio_file)  # Clean up the temporary audio file
 
 # Input field for user query with a microphone button
 col1, col2 = st.columns([8, 1])
@@ -122,9 +84,8 @@ if st.button("Ask"):
         
         # Add bot response to chat history
         st.session_state.messages.append({"role": "bot", "text": response})
-        ########################
+        
         st.session_state["voice_input"] = ""  # Clear text area after asking 
-        #############################
         # Re-render the chat history with the new messages
         st.rerun()
     else:
