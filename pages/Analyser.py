@@ -9,9 +9,9 @@ import google.generativeai as genai
 
 
 # Setup Gemini API
-GEMINI_API_KEY = "AIzaSyBnmKPdqC4CeJ5U1lP_xfzWsjgWWzVjZ9E"
+GEMINI_API_KEY = "AIzaSyBLGohpipKfhQ17IsILLOGNT3m7l9jeoOs"
 genai.configure(api_key=GEMINI_API_KEY)
-gemini_model = genai.GenerativeModel("gemini-1.5-pro")
+gemini_model = genai.GenerativeModel("gemini-2.0-flash")
 
 # Define your model
 class PlantDiseaseCNN(nn.Module):
