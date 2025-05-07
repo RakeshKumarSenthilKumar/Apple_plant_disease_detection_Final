@@ -5,7 +5,7 @@ import os
 import tempfile
 
 # Set your Gemini API key
-GEMINI_API_KEY = "AIzaSyBnmKPdqC4CeJ5U1lP_xfzWsjgWWzVjZ9E"
+GEMINI_API_KEY = "AIzaSyBLGohpipKfhQ17IsILLOGNT3m7l9jeoOs"
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Define plant-related keywords
@@ -24,7 +24,7 @@ def is_plant_related(prompt):
 def get_plant_response(prompt):
     """Get response from Gemini API if the prompt is related to plants."""
     if is_plant_related(prompt):
-        model = genai.GenerativeModel("gemini-1.5-pro")  # Using Gemini-Pro model
+        model = genai.GenerativeModel("gemini-2.0-flash")  # Using Gemini-Pro model
         response = model.generate_content(prompt)
         return response.text
     else:
