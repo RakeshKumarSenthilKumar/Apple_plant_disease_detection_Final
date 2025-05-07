@@ -37,7 +37,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 num_classes = 5  # Previously 4, now 5 including "Unknown"
 
 model = PlantDiseaseCNN(num_classes)
-model.load_state_dict(torch.load("pages\Plant_disease_model_with_five_class.pth", map_location=device))
+model.load_state_dict(torch.load("pages/Plant_disease_model_with_five_class.pth", map_location=device))
 model.to(device)
 model.eval()
 
