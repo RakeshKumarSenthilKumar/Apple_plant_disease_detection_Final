@@ -68,7 +68,7 @@ user_input = st.text_area("Enter your question:")
 
 if st.button("Ask"):
     if user_input.strip():
-        st.session_state.messages.append({"role": "user", "text": user_input+"if the above prompt is related to plant give the result for the prompt{user_input} else show Not valid as a output"})
+        st.session_state.messages.append({"role": "user", "text": user_input})
 
         response = get_plant_response(user_input)
 
