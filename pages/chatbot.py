@@ -8,46 +8,62 @@ import tempfile
 GEMINI_API_KEY = "AIzaSyBLGohpipKfhQ17IsILLOGNT3m7l9jeoOs"
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Define plant-related keywords
 PLANT_KEYWORDS = [
-    # Basic plant parts and functions
-    "plant", "tree", "flower", "leaves", "leaf", "stem", "root", "roots",
-    "seed", "seeds", "bud", "bloom", "branch", "trunk", "fruit", "fruits",
-    "photosynthesis", "chlorophyll", "pollination", "germination", "flowering",
+    # Basic Plant Anatomy
+    "plant", "plants", "tree", "trees", "flower", "flowers", "leaf", "leaves",
+    "stem", "stems", "root", "roots", "fruit", "fruits", "seed", "seeds", "bud", "buds",
+    "branch", "trunk", "shoot", "sprout", "bark", "blossom", "petal", "pollen", "pollinator",
+    "germination", "photosynthesis", "chlorophyll", "vascular tissue", "xylem", "phloem",
 
-    # Plant diseases and issues
-    "plant disease", "fungal infection", "bacterial infection", "viral disease",
-    "blight", "rot", "mildew", "rust", "canker", "wilt", "mosaic virus", 
-    "leaf spot", "scab", "yellowing leaves", "plant pest", "pests", "aphids",
-    "mites", "caterpillars", "insects", "infestation", "fungus gnats", "nematodes",
+    # Diseases & Pests
+    "plant disease", "fungal infection", "bacterial infection", "viral disease", "leaf spot",
+    "powdery mildew", "downy mildew", "blight", "wilt", "canker", "scab", "rot", "root rot",
+    "stem rot", "black rot", "rust", "mosaic virus", "chlorosis", "necrosis", "yellowing",
+    "curling leaves", "wilting", "aphids", "mites", "thrips", "caterpillars", "nematodes",
+    "fungus gnats", "whiteflies", "mealybugs", "scale insects", "snails", "slugs",
 
-    # Gardening and care
-    "gardening", "farming", "agriculture", "horticulture", "watering", 
-    "fertilizing", "fertilization", "compost", "mulch", "soil", "soil pH",
-    "drainage", "sunlight", "shade", "plant nutrients", "plant food", 
-    "plant care", "repotting", "pruning", "deadheading", "planting", 
-    "transplanting", "weeding", "crop rotation", "organic farming",
+    # Gardening & Plant Care
+    "gardening", "horticulture", "botany", "plant care", "watering", "fertilizing", "pruning",
+    "deadheading", "mulching", "repotting", "planting", "sowing", "weeding", "thinning",
+    "staking", "grafting", "cuttings", "division", "transplanting", "soil testing",
+    "compost", "organic compost", "vermicompost", "potting mix", "peat moss", "cocopeat",
+    "perlite", "hydroponics", "aeroponics", "grow lights", "indoor plants", "houseplants",
+    "greenhouse", "nursery", "terrarium", "bonsai", "planter", "shade-loving", "sun-loving",
 
-    # Plant growth and development
-    "plant growth", "growth stages", "vegetative stage", "flowering stage", 
-    "yield", "germination rate", "root development", "shoot", "sprout", "propagation",
+    # Plant Types
+    "herb", "shrubs", "shrub", "tree", "vine", "climber", "creeper", "grass", "succulent", 
+    "cactus", "aquatic plant", "flowering plant", "non-flowering plant", "annual", "biennial", 
+    "perennial", "deciduous", "evergreen", "orchid", "fern", "palm", "bulb", "tuber", "rhizome",
 
-    # Types of plants and environments
-    "indoor plant", "outdoor plant", "succulent", "cactus", "orchid", 
-    "fern", "herb", "shrub", "vine", "grass", "crop", "vegetable", "fruit tree",
-    "houseplant", "bonsai", "terrarium", "greenhouse", "nursery", "climber",
+    # Fruits, Vegetables & Crops
+    "apple", "banana", "mango", "grape", "papaya", "pear", "plum", "orange", "guava", "melon",
+    "watermelon", "lemon", "lime", "pineapple", "tomato", "potato", "onion", "carrot",
+    "spinach", "cabbage", "cauliflower", "chili", "pepper", "peas", "beans", "okra", "radish",
+    "turnip", "pumpkin", "zucchini", "brinjal", "eggplant", "beetroot", "lettuce", "garlic",
+    "ginger", "turmeric", "coriander", "curry leaf", "basil", "mint", "thyme", "rosemary",
 
-    # Common plant names (add more as needed)
-    "rose", "tomato", "potato", "mango", "banana", "apple", "spinach", "carrot",
-    "marigold", "tulip", "sunflower", "basil", "mint", "chili", "onion", "cabbage",
+    # Soil & Environment
+    "soil", "clay soil", "sandy soil", "loamy soil", "fertile soil", "soil pH", "moisture",
+    "humidity", "drainage", "sunlight", "shade", "temperature", "climate", "frost", "drought",
+    "monsoon", "rainfall", "seasons", "growing season", "microclimate",
 
-    # Soil and climate
-    "soil health", "loamy soil", "clay soil", "sandy soil", "moisture", 
-    "humidity", "drought", "frost", "seasonal plants", "climate", "temperature",
+    # Sustainable & Organic Farming
+    "organic", "organic farming", "pesticide", "herbicide", "fungicide", "biodegradable",
+    "natural remedy", "pest control", "eco-friendly", "biological control", "sustainability",
+    "companion planting", "crop rotation", "green manure", "mulch", "cover crop", "agroforestry",
 
-    # Sustainability
-    "organic", "pesticide", "herbicide", "biodegradable", "natural remedy",
-    "crop protection", "eco-friendly", "permaculture"
+    # Tools & Accessories
+    "watering can", "sprayer", "shovel", "spade", "hoe", "trowel", "gloves", "fertilizer",
+    "planter box", "hanging pot", "drip irrigation", "garden hose", "seed tray", "grow bag",
+    "propagation tray", "humidity dome", "grow tent", "UV light", "garden scissors",
+
+    # Botanical Processes
+    "transpiration", "plant hormones", "auxins", "cytokinins", "gibberellins", "abscisic acid",
+    "ethylene", "photoperiodism", "tropism", "gravitropism", "phototropism", "plant physiology",
+
+    # Misc
+    "crop", "harvest", "yield", "plant propagation", "landscape", "agronomy", "vegetation",
+    "ecosystem", "reforestation", "pollution impact", "plant biodiversity", "weeds", "allelopathy"
 ]
 
 
