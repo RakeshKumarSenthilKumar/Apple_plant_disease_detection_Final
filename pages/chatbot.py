@@ -10,11 +10,46 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 # Define plant-related keywords
 PLANT_KEYWORDS = [
-    "plant", "tree", "flower", "leaves", "stem", "roots", "photosynthesis",
-    "chlorophyll", "gardening", "agriculture", "horticulture", "plant disease",
-    "fungal infection", "bacterial infection", "viral disease", "pests", "plant care",
-    "soil health", "watering", "fertilization", "plant nutrients", "plant growth"
+    # Basic plant parts and functions
+    "plant", "tree", "flower", "leaves", "leaf", "stem", "root", "roots",
+    "seed", "seeds", "bud", "bloom", "branch", "trunk", "fruit", "fruits",
+    "photosynthesis", "chlorophyll", "pollination", "germination", "flowering",
+
+    # Plant diseases and issues
+    "plant disease", "fungal infection", "bacterial infection", "viral disease",
+    "blight", "rot", "mildew", "rust", "canker", "wilt", "mosaic virus", 
+    "leaf spot", "scab", "yellowing leaves", "plant pest", "pests", "aphids",
+    "mites", "caterpillars", "insects", "infestation", "fungus gnats", "nematodes",
+
+    # Gardening and care
+    "gardening", "farming", "agriculture", "horticulture", "watering", 
+    "fertilizing", "fertilization", "compost", "mulch", "soil", "soil pH",
+    "drainage", "sunlight", "shade", "plant nutrients", "plant food", 
+    "plant care", "repotting", "pruning", "deadheading", "planting", 
+    "transplanting", "weeding", "crop rotation", "organic farming",
+
+    # Plant growth and development
+    "plant growth", "growth stages", "vegetative stage", "flowering stage", 
+    "yield", "germination rate", "root development", "shoot", "sprout", "propagation",
+
+    # Types of plants and environments
+    "indoor plant", "outdoor plant", "succulent", "cactus", "orchid", 
+    "fern", "herb", "shrub", "vine", "grass", "crop", "vegetable", "fruit tree",
+    "houseplant", "bonsai", "terrarium", "greenhouse", "nursery", "climber",
+
+    # Common plant names (add more as needed)
+    "rose", "tomato", "potato", "mango", "banana", "apple", "spinach", "carrot",
+    "marigold", "tulip", "sunflower", "basil", "mint", "chili", "onion", "cabbage",
+
+    # Soil and climate
+    "soil health", "loamy soil", "clay soil", "sandy soil", "moisture", 
+    "humidity", "drought", "frost", "seasonal plants", "climate", "temperature",
+
+    # Sustainability
+    "organic", "pesticide", "herbicide", "biodegradable", "natural remedy",
+    "crop protection", "eco-friendly", "permaculture"
 ]
+
 
 def is_plant_related(prompt):
     """Check if the input text is related to plants and plant diseases."""
